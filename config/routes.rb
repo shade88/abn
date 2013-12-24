@@ -1,4 +1,6 @@
 Abn::Application.routes.draw do
+  resources :notes
+
   resources :books
 
   resources :users
