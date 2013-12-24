@@ -14,6 +14,12 @@
   <strong>User:</strong>
   <%= @book.user_id %>
 </p>
+<ol>
+  Notes
 
+  <%= render :partial => "/notes/note", :collection => @book.notes if @book.notes %>
+
+</ol>
+<%= link_to "Add note", new_note_path(note: {user_id: current_user.id, book_id:@book.id}) %>
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
