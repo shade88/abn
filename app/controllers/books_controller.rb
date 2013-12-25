@@ -10,8 +10,8 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    if @book.ratings.include? current_user
-      @rating=@book.ratings.new
+    if @book.ratings.nil? || !@book.ratings.include?(current_user)
+      @rating=Rating.new(book_id:@book.id, user_id:current_user.id)
     else
       @rating= @book.ratings.find_by_user_id current_user.id
     end
