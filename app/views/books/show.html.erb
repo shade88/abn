@@ -26,6 +26,8 @@
         <%= f.label i %>
         <%= f.radio_button :score, i %>
     <% end %>
+    <%= f.hidden_field :user_id,value:@rating.user.id %>
+    <%= f.hidden_field :book_id,value:@rating.book.id %>
     <br/>
     <%= f.submit 'set rating' %>
 <% end %>
