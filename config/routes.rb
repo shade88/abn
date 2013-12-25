@@ -1,4 +1,6 @@
 Abn::Application.routes.draw do
+  resources :ratings
+
   resources :notes
 
   resources :books
