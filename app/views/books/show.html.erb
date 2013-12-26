@@ -23,8 +23,8 @@
 
 <%= form_for @rating do |f| %>
     <% (1..10).each do |i| %>
-        <%= f.label i %>
-        <%= f.radio_button :score, i %>
+        <%= f.label :score,i,value:i %>
+        <%= f.radio_button :score, i%>
     <% end %>
     <%= f.hidden_field :user_id,value:@rating.user.id %>
     <%= f.hidden_field :book_id,value:@rating.book.id %>

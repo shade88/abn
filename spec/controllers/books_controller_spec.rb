@@ -156,18 +156,5 @@ describe BooksController do
       expect(response).to redirect_to(books_url)
     end
   end
-
-  describe 'Books rating' do
-    it 'set books rating' do
-      user = FactoryGirl.create(:user)
-      book=FactoryGirl.create(:book, user_id: user.id)
-      visit book_path(book)
-      #visit root_path
-      choose 'rating_score_3'
-      click 'Set rating'
-      book.ratings.first.score should be 3
-    end
-  end
-
-
 end
+
