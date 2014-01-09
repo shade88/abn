@@ -14,7 +14,7 @@
   <strong>User:</strong>
   <%= @book.user_id %>
 </p>
-<br />
+<br/>
 
 <p>
   <strong>Rating:</strong>
@@ -23,21 +23,48 @@
 
 <%= form_for @rating do |f| %>
     <% (1..10).each do |i| %>
-        <%= f.label :score,i,value:i %>
-        <%= f.radio_button :score, i%>
+        <%= f.label :score, i, value: i %>
+        <%= f.radio_button :score, i %>
     <% end %>
-    <%= f.hidden_field :user_id,value:@rating.user.id %>
-    <%= f.hidden_field :book_id,value:@rating.book.id %>
+    <%= f.hidden_field :user_id, value: @rating.user.id %>
+    <%= f.hidden_field :book_id, value: @rating.book.id %>
     <br/>
     <%= f.submit 'set rating' %>
 <% end %>
 
-<ol>
-  Notes
+<% if @book.notes!=0 %>
+    <ol>
+      Notes
 
-  <%= render :partial => "/notes/note", :collection => @book.notes if @book.notes %>
+      <%= render :partial => "notes/note", :collection => @book.notes %>
 
-</ol>
+    </ol>
+<% end %>
+
+<% if @book.comments.count!=0 %>
+    <ol>
+      Comments:
+
+      <%= render :partial => "comments/comment", :collection => @book.comments %>
+
+    </ol>
+<% end %>
+
+<h2>New Comment</h2>
+<%= form_for [@book, Comment.new] do |f| %>
+    <ol>
+      <li>
+        <%= f.label :text %>
+        <%= f.text_area :text, :rows => 5 %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      </li>
+      <li><%= submit_tag "Add comment" %></li>
+    </ol>
+<% end %>
+
+<%= link_to "Add comment", new_comment_path(comment: {user_id: current_user.id, commentable: @book}) %>
+<br>
+
 <%= link_to "Add note", new_note_path(note: {user_id: current_user.id, book_id: @book.id}) %>
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>

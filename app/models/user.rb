@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   has_many :ratings
   #attr_accessor :name
   validates :name, presence: true
+  has_many :comments
 end
