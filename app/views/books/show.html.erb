@@ -21,6 +21,7 @@
   <%= @book.ratings.average('score') %>
 </p>
 
+
 <%= form_for @rating do |f| %>
     <% (1..10).each do |i| %>
         <%= f.label :score, i, value: i %>
@@ -61,9 +62,6 @@
       <li><%= submit_tag "Add comment" %></li>
     </ol>
 <% end %>
-
-<%= link_to "Add comment", new_comment_path(comment: {user_id: current_user.id, commentable: @book}) %>
-<br>
 
 <%= link_to "Add note", new_note_path(note: {user_id: current_user.id, book_id: @book.id}) %>
 <%= link_to 'Edit', edit_book_path(@book) %> |
