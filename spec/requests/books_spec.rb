@@ -34,13 +34,42 @@ describe "Books" do
   end
 
 
-  it 'create new book' do
-    @user = FactoryGirl.create(:user)
-    visit new_book_path
-    fill_in('Title', :with => 'John')
-    fill_in('book_description', :with => 'John dfdsfds')
-    click_button 'Create Book'
-    expect(Book.find(1).title).to eq 'John'
-  end
+  describe 'create new book' do
+    before :all do
+      @user = FactoryGirl.create(:user)
+    end
+    describe 'success' do
+      before :all do
+        visit new_book_path
+        fill_in('Title', :with => 'John')
+        fill_in('book_description', :with => 'John dfdsfds')
+        click_button 'Create Book'
+      end
+      #expect(Book.find(1).title).to eq 'John'
+      it 'book should be added to DB' do
+        expect(Book.find(1)).to be
+      end
+      it 'на странице книги есть ее название' do
+        visit book_path(1)
+        expect(page).to have_content 'John'
+      end
+      it 'книга появляется в списке книг' do
+        visit books_path
+        expect(page).to have_content 'John'
+      end
+      it 'книга появляется у пользователя в профайле' do
+        pending 'сделать тест, когда будет готов профайл пользователя'
+      end
+    end
 
+    describe 'failed' do
+      it 'пользователю показывается ошибка' do
+        visit new_book_path
+        fill_in('Title', :with => '')
+        fill_in('book_description', :with => '')
+        click_button 'Create Book'
+        expect(page).to have_content 'Введите название книги'
+      end
+    end
+  end
 end
