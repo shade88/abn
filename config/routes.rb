@@ -7,9 +7,17 @@ Abn::Application.routes.draw do
     resources :comments
   end
 
-  resources :users
+  resources :users   do
+    #collection do
+    #  get 'users_list'
+    #  post 'set_current_user'
+    #end
+  end
 
   resources :comments
+
+  get 'users_list', to: 'users#users_list'
+  get 'set_current_user', to: 'users#set_current_user'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

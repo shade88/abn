@@ -1,0 +1,3 @@
+<% @users.each do |user| %>
+    <p><%= link_to user.name, controller: 'users', action: 'set_current_user', user_id:user.id %></p>
+<% end %>
